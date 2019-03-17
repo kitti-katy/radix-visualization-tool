@@ -67,7 +67,7 @@ class Main extends Component {
         let style = this.getContainerStyle(length - n + 1)
         let allEmpty = parseInt(convertedArr.slice(n).join('')) == 0
         style.visibility = allEmpty ? 'hidden' : 'visible'
-        
+
         return <div className="squareContainer" style={style} key={modularKey}> {render.map(el => el)}</div>
     }
 
@@ -94,7 +94,7 @@ class Main extends Component {
 
         return (
             <div >
-                <h2>Radix visulization tool</h2>
+                <h2>Radix visualization tool</h2>
                 <table>
                     <tr> <td><label> Decimal number : </label> </td> <td> <input type="number" value={base10Number} onChange={this.setBase10Number} /> </td></tr>
                     <tr> <td><label> Base : </label> </td> <td> <input type="number" value={radix} onChange={this.setRadix} /> </td></tr>
