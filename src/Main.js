@@ -7,14 +7,6 @@ class Main extends Component {
         convertedArr: [1, 0, 0, 1]
     }
     setConvertedArr = (n, radix) => {
-        /*let converted = []
-        while (n != 0) {
-            converted.push(n % radix)
-            n = Math.floor(n / radix)
-        }
-        converted = converted.reverse()
-        this.setState({ convertedArr: converted })
-        */
         this.setState({ convertedArr: n.toString(radix).split('') })
     }
 
@@ -77,11 +69,27 @@ class Main extends Component {
 
     setRadix = (e) => {
         let radix = parseInt(e.target.value)
+        if (isNaN(radix) || radix < 2) {
+            e.target.value = null
+            return
+        }
+        if (radix > 10) {
+            e.target.value = this.state.radix
+            return
+        }
         this.setState({ radix })
         this.setConvertedArr(this.state.base10Number, radix)
     }
     setBase10Number = (e) => {
         let base10Number = parseInt(e.target.value)
+        if (base10Number < 1 || isNaN(base10Number)) {
+            e.target.value = null
+            return
+        }
+        if (base10Number > 500) {
+            e.target.value = this.state.base10Number
+            return
+        }
         this.setState({ base10Number })
         this.setConvertedArr(base10Number, this.state.radix)
     }
@@ -96,8 +104,8 @@ class Main extends Component {
             <div >
                 <h2>Radix visualization tool</h2>
                 <table>
-                    <tr> <td><label> Decimal number : </label> </td> <td> <input type="number" value={base10Number} onChange={this.setBase10Number} /> </td></tr>
-                    <tr> <td><label> Base : </label> </td> <td> <input type="number" value={radix} onChange={this.setRadix} /> </td></tr>
+                    <tr> <td><label> Decimal number : </label> </td> <td> <input type="number" max='500' min='1' defaultValue={base10Number} onChange={this.setBase10Number} /> </td></tr>
+                    <tr> <td><label> Base : </label> </td> <td> <input type="number" max='10' min='2' defaultValue={radix} onChange={this.setRadix} /> </td></tr>
                 </table>
 
                 <h3> {base10Number}<i className="base">10</i> = <b>{convertedStr}<i className="base">{radix}</i></b> </h3>
@@ -110,6 +118,7 @@ class Main extends Component {
                 <div style={{ display: 'table', margin: 'auto' }}>
                     {squares}
                 </div>
+
 
             </div>
         );
